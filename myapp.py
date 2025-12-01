@@ -1,5 +1,5 @@
-!python -m pip install --upgrade pip
-!python -m venv .venv
+#!python -m pip install --upgrade pip
+#!python -m venv .venv
 pip install streamlit langchain langchain-openai langchain-chroma langchain-community langchain-google-genai langchain-huggingface chromadb sentence-transformers openai tiktoken python-dotenv
 
 # Corporate Training RAG Bot with Streamlit
@@ -22,7 +22,7 @@ from langchain_openai import OpenAI
 import os
 from datetime import datetime
 # Set your OpenAI API key
-os.environ["OPENAI_API_KEY"] = "Your api key"
+os.environ["OPENAI_API_KEY"] = "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"
 # ============================================================================
 # PAGE CONFIGURATION
 # ============================================================================
@@ -271,7 +271,7 @@ def load_rag_pipeline():
     )
     retriever = vectorstore.as_retriever()
     qa_chain = RetrievalQA.from_chain_type(
-        llm=OpenAI(),
+        llm=OpenAI(model="gemini-2.5-flash",api_key= OPENAI_API_KEY,model_provider="google_genai"),
         chain_type="stuff",
         retriever=retriever
     )
@@ -326,5 +326,6 @@ if prompt := st.chat_input("What is up?"):
 
 
 #Step 5: Run the application
-streamlit run app.py
+!streamlit run app.py
+
 
